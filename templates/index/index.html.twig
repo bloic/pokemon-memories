@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Memory Game - Niveau {{ level }}{% endblock %}
+
+{% block body %}
+    <div class="level-info">
+        <h2>Niveau {{ level }}</h2>
+        <div>Paires: <span id="matched-count">0</span> / {{ totalPairs }}</div>
+        <button id="reset-button" class="btn-reset">Recommencer au niveau 1</button>
+    </div>
+
+    <div class="game-container" data-total-pairs="{{ totalPairs }}">
+        {% for card in cards %}
+            <div class="card" data-id="{{ card.id }}" data-uuid="{{ card.uuid }}">
+                <div class="card-inner">
+                    <div class="card-back">
+                        <img
+                            src="{{ asset('images/cardRecto.png') }}"
+                            alt="Pokemon - {{ card.name }}">
+                    </div>
+                    <div class="card-front">
+                        <img class="card-image"
+                             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ card.id }}.png"
+                             alt="{{ card.name }}">
+                        <p>{{ card.name }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
