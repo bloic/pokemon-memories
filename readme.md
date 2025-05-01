@@ -17,8 +17,7 @@ Ce projet est un jeu de Memory basé sur les Pokémon, développé avec Symfony 
 
 - PHP 8.2 ou supérieur
 - Composer
-- Symfony CLI (recommandé pour le développement)
-- Un navigateur web moderne
+- Symfony CLI 
 
 ## Installation
 
