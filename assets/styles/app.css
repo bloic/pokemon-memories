@@ -1,3 +1,121 @@
-body {
-    background-color: skyblue;
+/* Style général du jeu Memory */
+.level-info {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Grid pour les cartes */
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 1000px;
+}
+
+/* Style des cartes */
+.card {
+    width: 200px;
+    height: 300px;
+    perspective: 1000px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-back {
+    background-color: #f0f0f0;
+}
+
+.card-back img {
+    width: 100%;
+    height: 100%;
+}
+
+.card-front {
+    display: flex;
+    flex-direction: column;
+    transform: rotateY(180deg);
+    background-color: white;
+}
+
+.card-front .card-image {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.card-front p {
+    margin-top: 10px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.card.matched {
+    opacity: 0.7;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .game-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .card {
+        width: 150px;
+        height: 225px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .card {
+        width: 120px;
+        height: 180px;
+    }
+}
+
+/* Style du bouton de reset */
+.btn-reset {
+    margin: 15px auto;
+    padding: 10px 20px;
+    background-color: #ff5252;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: block;
+}
+
+.btn-reset:hover {
+    background-color: #ff0000;
 }
