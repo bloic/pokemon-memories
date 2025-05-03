@@ -1,4 +1,3 @@
-
 # Memory Game Pokémon
 
 ## Description
@@ -10,8 +9,11 @@ Ce projet est un jeu de Memory basé sur les Pokémon, développé avec Symfony 
 - Jeu de Memory avec des Pokémon comme images
 - Système de niveaux progressifs (plus de cartes à chaque niveau)
 - Score en temps réel
+- Système de points avec récompenses et pénalités
+- Timer avec bonus de temps
 - Notification de victoire
 - Bouton de réinitialisation pour recommencer au niveau 1
+- Design responsive
 
 ## Prérequis
 
@@ -54,15 +56,22 @@ Ce projet est un jeu de Memory basé sur les Pokémon, développé avec Symfony 
 
 1. Ouvrez l'application dans votre navigateur
 2. Cliquez sur deux cartes pour tenter de former une paire
-3. Si les cartes sont identiques, elles restent visibles
-4. Trouvez toutes les paires pour passer au niveau suivant
-5. Utilisez le bouton "Recommencer au niveau 1" pour réinitialiser le jeu
+3. Si les cartes sont identiques, elles restent visibles et vous gagnez des points
+4. Si les cartes sont différentes, elles se retournent et vous perdez des points
+5. Trouvez toutes les paires pour passer au niveau suivant
+6. Plus vous jouez vite, plus vous gagnez de points bonus
+7. Utilisez le bouton "Recommencer au niveau 1" pour réinitialiser le jeu
 
 ## Règles du jeu
 
 - Au niveau 1, vous commencez avec 2 paires (4 cartes)
-- À chaque niveau, le nombre de paires augmente de 2
+- À chaque niveau, le nombre de paires augmente
 - Les cartes sont mélangées à chaque niveau
+- Système de points :
+  - +10 points × niveau pour chaque paire trouvée
+  - -5 points pour chaque erreur
+  - Bonus de temps à la fin du niveau (jusqu'à 100 points)
+  - Bonus de niveau (50 points × niveau)
 
 ## Technologies utilisées
 
@@ -79,6 +88,7 @@ Vous pouvez personnaliser le jeu en modifiant :
 - Le nombre de cartes par niveau (dans `IndexController.php`)
 - L'apparence des cartes (dans `app.css`)
 - Le comportement du jeu (dans `app.js`)
+- Le système de points et les bonus (dans `app.js`)
 
 ## Dépannage
 
@@ -89,10 +99,7 @@ Si vous rencontrez des problèmes :
 3. Videz le cache de votre navigateur
 4. Vérifiez la console de votre navigateur pour d'éventuelles erreurs JavaScript
 
-
-
 ## Remerciements
 
 - L'API Pokémon (pokeapi.co) pour les données des Pokémon
 ---
-
