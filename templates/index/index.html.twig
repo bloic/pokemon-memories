@@ -5,11 +5,25 @@
 {% block body %}
     <div class="level-info">
         <h2>Niveau {{ level }}</h2>
-        <div>Paires: <span id="matched-count">0</span> / {{ totalPairs }}</div>
+        <div class="game-stats">
+            <div class="stat-item">
+                <span class="stat-label">Paires:</span> 
+                <span id="matched-count">0</span> / {{ totalPairs }}
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Timer:</span> 
+                <span id="timer">00:00</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Points:</span> 
+                <span id="points-display">{{ points }}</span>
+                <span id="points-animation" class="points-animation"></span>
+            </div>
+        </div>
         <button id="reset-button" class="btn-reset">Recommencer au niveau 1</button>
     </div>
 
-    <div class="game-container" data-total-pairs="{{ totalPairs }}">
+    <div class="game-container" data-total-pairs="{{ totalPairs }}" data-points="{{ points }}">
         {% for card in cards %}
             <div class="card" data-id="{{ card.id }}" data-uuid="{{ card.uuid }}">
                 <div class="card-inner">

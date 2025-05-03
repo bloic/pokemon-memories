@@ -21,25 +21,37 @@ final class IndexController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(Request $request): Response
     {
-        // Récupérer le niveau depuis la session, par défaut 1
+        // Récupérer le niveau et les points depuis la session
         $session = $request->getSession();
         
-        // Réinitialiser le niveau si demandé
+        // Réinitialiser le jeu si demandé
         if ($request->query->has('reset')) {
             $session->set('game_level', 1);
+            $session->set('game_points', 0);
             return $this->redirectToRoute('app_index');
         }
         
         $level = $session->get('game_level', 1);
+        $points = $session->get('game_points', 0);
         
         // Augmenter le niveau si nécessaire
         if ($request->query->has('level_up')) {
             $level++;
             $session->set('game_level', $level);
+            
+            // Ajouter des points bonus pour avoir terminé le niveau
+            $levelBonus = 50 * $level;
+            if ($request->query->has('time_bonus')) {
+                $timeBonus = (int)$request->query->get('time_bonus');
+                $points += $levelBonus + $timeBonus;
+            } else {
+                $points += $levelBonus;
+            }
+            $session->set('game_points', $points);
         }
         
         // Calculer la limite en fonction du niveau
-        $limit = max(2, $level * 2);
+        $limit = max(1, $level * 1);
         
         $listePokemon = $this->client
             ->request(
@@ -66,6 +78,7 @@ final class IndexController extends AbstractController
         return $this->render('index/index.html.twig', [
             'cards' => $cards,
             'level' => $level,
+            'points' => $points,
             'totalPairs' => count($cards) / 2
         ]);
     }
