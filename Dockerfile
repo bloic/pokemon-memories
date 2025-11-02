@@ -1,35 +1,30 @@
 FROM php:8.2-fpm
 
-# Installe les dépendances système nécessaires
+# Installer les dépendances nécessaires pour GD (images)
 RUN apt-get update && apt-get install -y \
-        git \
-        unzip \
-        zip \
-        libzip-dev \
-        libfreetype-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
+    libfreetype-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd pdo_mysql zip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && docker-php-ext-install -j$(nproc) gd
 
-# Copie Composer depuis l'image officielle
+# Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Définit le répertoire de travail
+# Définir le répertoire de travail
 WORKDIR /var/www
 
-# Copie les fichiers de dépendances pour tirer parti du cache Docker
+# Copier les fichiers composer
 COPY composer.json composer.lock ./
-COPY package*.json ./
 
-# Installe les dépendances PHP sans les dev
+# Installer les dépendances PHP (sans dev)
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Copie le reste du code
+# Copier le reste du code
 COPY . .
 
-# Expose le port 80 (pour FPM, souvent utile si un nginx sera lié)
+# Exposer le port 80 (nginx ou php-fpm écoute)
 EXPOSE 80
 
-# Par défaut, php-fpm démarre automatiquement dans cette image
+# Démarrer php-fpm
+CMD ["php-fpm"]
