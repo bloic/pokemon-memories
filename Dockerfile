@@ -23,6 +23,10 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 COPY . .
 
+COPY .env .env.local
+
+RUN sed -i 's/^ENV=DEV/ENV=PROD/' .env.local
+
 EXPOSE 80
 
 CMD ["php", "-S", "0.0.0.0:80", "-t", "public"]
