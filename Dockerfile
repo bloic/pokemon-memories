@@ -29,8 +29,6 @@ RUN sed -i 's/^APP_ENV=DEV/APP_ENV=PROD/' .env.prod
 
 # Définir les variables d’environnement dans le conteneur
 ENV APP_ENV=prod
-ENV APP_SECRET=2dde61a257dee0e26825a7fdfbc54291
-
 
 EXPOSE 80
 
