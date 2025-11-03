@@ -23,9 +23,9 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 COPY . .
 
-COPY .env .env.local
+COPY .env .env.prod
 
-RUN sed -i 's/^ENV=DEV/ENV=PROD/' .env.local
+RUN sed -i 's/^ENV=DEV/ENV=PROD/' .env.prod
 
 EXPOSE 80
 
