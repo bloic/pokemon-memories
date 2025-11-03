@@ -30,9 +30,7 @@ RUN sed -i 's/^APP_ENV=DEV/APP_ENV=PROD/' .env.prod
 
 # Définir les variables d’environnement dans le conteneur
 ENV APP_ENV=prod
-
-APP_ENV=PROD
-DATABASE_URL="postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=16&charset=utf8"
+ENV DATABASE_URL="postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=16&charset=utf8"
 
 EXPOSE 80
 
