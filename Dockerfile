@@ -25,7 +25,15 @@ COPY . .
 
 COPY .env .env.prod
 
-RUN sed -i 's/^ENV=DEV/ENV=PROD/' .env.prod
+RUN sed -i 's/^APP_ENV=DEV/APP_ENV=PROD/' .env.prod
+
+# Ajouter la variable APP_SECRET à la fin du fichier
+RUN echo "APP_SECRET=2dde61a257dee0e26825a7fdfbc54291" >> .env.prod
+
+# Définir les variables d’environnement dans le conteneur
+ENV APP_ENV=prod
+ENV APP_SECRET=2dde61a257dee0e26825a7fdfbc54291
+
 
 EXPOSE 80
 
